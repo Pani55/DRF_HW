@@ -1,0 +1,82 @@
+[
+  {
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$uJ0VmqpSiBNs3SlzkbYcsK$1cV8ZemlC8ta+UojgfhcpOBsLvdSPnyem6DZV/qBgYM=",
+      "last_login": "2024-08-13T00:16:08.416Z",
+      "is_superuser": true,
+      "first_name": "",
+      "last_name": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2024-08-13T00:16:00.778Z",
+      "email": "admin@example.com",
+      "phone": null,
+      "city": null,
+      "photo": "",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+      "password": "123666",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "Никита",
+      "last_name": "пурууру",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-08-13T00:16:15Z",
+      "email": "Dumbasss_rus@mail.ru",
+      "phone": "9998887766",
+      "city": "Омск",
+      "photo": "",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 3,
+    "fields": {
+      "password": "123666",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "максим",
+      "last_name": "пурууру",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-08-13T00:18:09Z",
+      "email": "test1@turtu.su",
+      "phone": "5554443322",
+      "city": "Орск",
+      "photo": "",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 4,
+    "fields": {
+      "password": "123666",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "ольга",
+      "last_name": "пурууру",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-08-13T00:19:01Z",
+      "email": "trust@tara.com",
+      "phone": "1115559900",
+      "city": "Томск",
+      "photo": "",
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]
