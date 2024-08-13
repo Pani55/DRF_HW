@@ -22,3 +22,39 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.email
+
+
+class Payment(models.Model):
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name="Пользователь"
+    )
+    date_of_payment = models.DateTimeField(
+        verbose_name="Дата оплаты",
+        auto_now_add=True,
+    )
+    paid_lesson = models.ForeignKey(
+        to="studing.Lesson",
+        on_delete=models.CASCADE,
+        verbose_name="Оплаченный урок",
+        blank=True,
+        null=True,
+    )
+    paid_course = models.ForeignKey(
+        to="studing.Course",
+        on_delete=models.CASCADE,
+        verbose_name="Оплаченный курс",
+        blank=True,
+        null=True,
+    )
+    summ_of_payment = models.FloatField(verbose_name="Сумма оплаты")
+    method_choices = ((1, "Наличные"), (2, "Перевод на счёт"))
+    payment_method = models.IntegerField(
+        choices=method_choices, verbose_name="Метод оплаты", blank=True, null=True
+    )
+
+    class Meta:
+        verbose_name = "Оплата"
+        verbose_name_plural = "Оплаты"
+
+    def __str__(self):
+        return f"{self.user} - {self.paid_lesson if self.paid_lesson else self.paid_course}"
