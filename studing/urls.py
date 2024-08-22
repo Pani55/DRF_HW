@@ -4,7 +4,8 @@ from rest_framework.routers import SimpleRouter
 from studing.apps import StudingConfig
 from studing.views import (CourseViewSet, LessonCreateApiView,
                            LessonDestroyApiView, LessonListApiView,
-                           LessonRetrieveApiView, LessonUpdateApiView)
+                           LessonRetrieveApiView, LessonUpdateApiView,
+                           SubscriptionAPIView)
 
 app_name = StudingConfig.name
 
@@ -21,6 +22,7 @@ urlpatterns = [
     path(
         "lesson/<int:pk>/update/", LessonUpdateApiView.as_view(), name="lesson_update"
     ),
+    path("subscription/", SubscriptionAPIView.as_view(), name="subscription"),
 ]
 
 urlpatterns += router.urls
