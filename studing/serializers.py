@@ -28,7 +28,9 @@ class CourseSerializer(ModelSerializer):
 
     def get_subscription(self, obj):
         try:
-            subscription = SubscriptionOnCourse.objects.get(course=obj, user=self.context["request"].user)
+            subscription = SubscriptionOnCourse.objects.get(
+                course=obj, user=self.context["request"].user
+            )
             return SubscriptionSerializer(subscription).data
         except SubscriptionOnCourse.DoesNotExist:
             return None
