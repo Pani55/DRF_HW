@@ -1,4 +1,4 @@
-from rest_framework import viewsets, status
+from rest_framework import status, viewsets
 from rest_framework.generics import (CreateAPIView, DestroyAPIView,
                                      ListAPIView, RetrieveAPIView,
                                      UpdateAPIView, get_object_or_404)
@@ -8,7 +8,8 @@ from rest_framework.views import APIView
 
 from studing.models import Course, Lesson, SubscriptionOnCourse
 from studing.paginations import CustomPagination
-from studing.serializers import CourseSerializer, LessonSerializer, SubscriptionSerializer
+from studing.serializers import (CourseSerializer, LessonSerializer,
+                                 SubscriptionSerializer)
 from users.permissions import IsModer, IsOwner
 
 
@@ -89,7 +90,8 @@ class LessonDestroyApiView(DestroyAPIView):
 
     def get_permissions(self):
         self.permission_classes = (
-            IsAuthenticated, ~IsModer | IsOwner,
+            IsAuthenticated,
+            ~IsModer | IsOwner,
         )
         return super().get_permissions()
 
@@ -106,17 +108,13 @@ class SubscriptionAPIView(APIView):
         if subs_item.exists():
             subs_item.delete()
             message = "Подписка удалена"
-            data = {
-                "message": message,
-                "subscription": "Объект удален"
-            }
+            data = {"message": message, "subscription": "Объект удален"}
             return Response(data, status=status.HTTP_200_OK)
         else:
-            subscription = SubscriptionOnCourse.objects.create(user=user, course=course_item)
+            subscription = SubscriptionOnCourse.objects.create(
+                user=user, course=course_item
+            )
             message = "Подписка добавлена"
             subscription = SubscriptionSerializer().to_representation(subscription)
-            data = {
-                "message": message,
-                "subscription": subscription
-            }
+            data = {"message": message, "subscription": subscription}
             return Response(data, status=status.HTTP_201_CREATED)
