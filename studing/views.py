@@ -11,6 +11,7 @@ from studing.paginations import CustomPagination
 from studing.serializers import (CourseSerializer, LessonSerializer,
                                  SubscriptionSerializer)
 from users.permissions import IsModer, IsOwner
+from users.services import create_stripe_product
 
 
 # Create your views here.
@@ -21,8 +22,8 @@ class CourseViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         course = serializer.save()
-        course.owner = self.request.user
-        course.save()
+        stripe_product_id = create_stripe_product(course.title)
+        serializer.save(owner=self.request.user, stripe_product_id=stripe_product_id)
 
     def get_permissions(self):
         if self.action == "create":
@@ -43,8 +44,8 @@ class LessonCreateApiView(CreateAPIView):
 
     def perform_create(self, serializer):
         lesson = serializer.save()
-        lesson.owner = self.request.user
-        lesson.save()
+        stripe_product_id = create_stripe_product(lesson.title)
+        serializer.save(owner=self.request.user, stripe_product_id=stripe_product_id)
 
     def get_permissions(self):
         self.permission_classes = (

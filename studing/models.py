@@ -7,12 +7,21 @@ class Course(models.Model):
         upload_to="course/preview", verbose_name="Превью курса", blank=True, null=True
     )
     description = models.TextField(verbose_name="Описание курса", blank=True, null=True)
+    price = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        verbose_name="цена курса(РУБ)",
+        default=1000,
+    )
     owner = models.ForeignKey(
         "users.User",
         on_delete=models.CASCADE,
         verbose_name="Владелец курса",
         null=True,
         blank=True,
+    )
+    stripe_product_id = models.CharField(
+        max_length=255, blank=True, null=True, verbose_name="ID продукта для stripe"
     )
 
     class Meta:
@@ -29,6 +38,12 @@ class Lesson(models.Model):
     preview = models.ImageField(
         upload_to="lesson/preview", verbose_name="Превью урока", blank=True, null=True
     )
+    price = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        verbose_name="цена урока(РУБ)",
+        default=1000,
+    )
     link = models.TextField(
         verbose_name="Ссылка на урок",
     )
@@ -41,6 +56,9 @@ class Lesson(models.Model):
         verbose_name="Владелец урока",
         null=True,
         blank=True,
+    )
+    stripe_product_id = models.CharField(
+        max_length=255, blank=True, null=True, verbose_name="ID продукта для stripe"
     )
 
     class Meta:
