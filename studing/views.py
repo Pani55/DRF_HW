@@ -12,6 +12,7 @@ from studing.serializers import (CourseSerializer, LessonSerializer,
                                  SubscriptionSerializer)
 from users.permissions import IsModer, IsOwner
 from users.services import create_stripe_product
+from studing.tasks import send_subscription_notification
 
 
 # Create your views here.
@@ -24,6 +25,11 @@ class CourseViewSet(viewsets.ModelViewSet):
         course = serializer.save()
         stripe_product_id = create_stripe_product(course.title)
         serializer.save(owner=self.request.user, stripe_product_id=stripe_product_id)
+
+    def perform_update(self, serializer):
+        course = serializer.save()
+        result = send_subscription_notification.delay(course_id=course.pk)
+        result.get()
 
     def get_permissions(self):
         if self.action == "create":
